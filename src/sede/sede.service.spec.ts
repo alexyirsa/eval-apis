@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SedeService } from './sede.service';
-import { TypeOrmTestingConfig } from 'src/shared/testing-utils/typeorm-testing-config';
-import { SupermercadoEntity } from 'src/supermercado/supermercado.entity';
+import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
+import { SupermercadoEntity } from '../supermercado/supermercado.entity';
 import { Repository } from 'typeorm/repository/Repository';
-import { CiudadEntity } from 'src/ciudad/ciudad.entity';
+import { CiudadEntity } from '../ciudad/ciudad.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('SedeService', () => {

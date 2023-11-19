@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import {
   BusinessError,
   BusinessLogicException,
-} from 'src/shared/errors/business-errors';
+} from '../shared/errors/business-errors';
 
 @Injectable()
 export class CiudadService {
@@ -16,7 +16,7 @@ export class CiudadService {
   ) {}
 
   async findAll(): Promise<CiudadEntity[]> {
-    return await this.ciudadRepository.find({ relations: ['restaurantes'] });
+    return await this.ciudadRepository.find({ relations: ['supermercados'] });
   }
 
   async findOne(id: string): Promise<CiudadEntity> {

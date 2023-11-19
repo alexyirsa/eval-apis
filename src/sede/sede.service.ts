@@ -5,8 +5,8 @@ import { CiudadEntity } from '../ciudad/ciudad.entity';
 import {
   BusinessError,
   BusinessLogicException,
-} from 'src/shared/errors/business-errors';
-import { SupermercadoEntity } from 'src/supermercado/supermercado.entity';
+} from '../shared/errors/business-errors';
+import { SupermercadoEntity } from '../supermercado/supermercado.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

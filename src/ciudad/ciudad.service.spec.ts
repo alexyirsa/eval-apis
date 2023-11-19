@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CiudadService } from './ciudad.service';
-import { TypeOrmTestingConfig } from 'src/shared/testing-utils/typeorm-testing-config';
+import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
 
 import { Repository } from 'typeorm/repository/Repository';
 import { getRepositoryToken } from '@nestjs/typeorm/dist/common/typeorm.utils';
-import { CiudadEntity } from './ciudad.entity';
 import { faker } from '@faker-js/faker';
+import { CiudadEntity } from './ciudad.entity';
 
 describe('CiudadService', () => {
   let service: CiudadService;
