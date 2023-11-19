@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+
 import { SupermercadoEntity } from 'src/supermercado/supermercado.entity';
 import {
   Column,

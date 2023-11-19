@@ -3,7 +3,6 @@ import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class SupermercadoEntity {
-  [x: string]: any;
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
