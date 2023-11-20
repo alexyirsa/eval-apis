@@ -47,4 +47,71 @@ describe('CiudadService', () => {
     expect(ciudades).not.toBeNull();
     expect(ciudades).toHaveLength(ciudadList.length);
   });
+
+  it('findOne should return a city by id', async () => {
+    const storedCiudad: CiudadEntity = ciudadList[0];
+    const ciudad: CiudadEntity = await service.findOne(storedCiudad.id);
+    expect(ciudad).not.toBeNull();
+    expect(ciudad.name).toEqual(storedCiudad.name);
+    expect(ciudad.country).toEqual(storedCiudad.country);
+    expect(ciudad.people).toEqual(storedCiudad.people);
+  });
+
+  it('findOne should throw an exception for an invalid city', async () => {
+    await expect(() => service.findOne('0')).rejects.toHaveProperty(
+      'message',
+      'The city with the given id was not found',
+    );
+  });
+
+  it('create should return a new city', async () => {
+    const ciudad: CiudadEntity = {
+      id: '',
+      name: faker.company.name(),
+      country: 'Argentina',
+      people: faker.number.int(),
+      supermercados: [],
+    };
+    const newCiudad: CiudadEntity = await service.create(ciudad);
+    expect(newCiudad).not.toBeNull();
+    const storedCiudad: CiudadEntity = await repository.findOne({
+      where: { id: newCiudad.id },
+    });
+    expect(storedCiudad).not.toBeNull();
+    expect(storedCiudad.name).toEqual(newCiudad.name);
+    expect(storedCiudad.country).toEqual(newCiudad.country);
+    expect(storedCiudad.people).toEqual(newCiudad.people);
+  });
+
+  it('update should modify a city', async () => {
+    const ciudad: CiudadEntity = ciudadList[0];
+    ciudad.name = 'New name';
+    ciudad.country = 'New country';
+    const updatedCiudad: CiudadEntity = await service.update(ciudad.id, ciudad);
+    expect(updatedCiudad).not.toBeNull();
+    const storedCiudad: CiudadEntity = await repository.findOne({
+      where: { id: ciudad.id },
+    });
+    expect(storedCiudad).not.toBeNull();
+    expect(storedCiudad.name).toEqual(ciudad.name);
+    expect(storedCiudad.country).toEqual(ciudad.country);
+  });
+
+  it('delete should remove a city', async () => {
+    const ciudad: CiudadEntity = ciudadList[0];
+    await service.delete(ciudad.id);
+    const deletedCiudad: CiudadEntity = await repository.findOne({
+      where: { id: ciudad.id },
+    });
+    expect(deletedCiudad).toBeNull();
+  });
+
+  it('delete should throw an exception for an invalid city', async () => {
+    const ciudad: CiudadEntity = ciudadList[0];
+    await service.delete(ciudad.id);
+    await expect(() => service.delete('0')).rejects.toHaveProperty(
+      'message',
+      'The city with the given id was not found',
+    );
+  });
 });

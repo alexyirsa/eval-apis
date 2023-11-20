@@ -29,7 +29,7 @@ export class SedeService {
       });
     if (!supermercado) {
       throw new BusinessLogicException(
-        'The upermercado with the given id was not found',
+        'The super with the given id was not found',
         BusinessError.NOT_FOUND,
       );
     }
@@ -39,7 +39,7 @@ export class SedeService {
     });
     if (!ciudad) {
       throw new BusinessLogicException(
-        'The ciudad with the given id was not found',
+        'The city with the given id was not found',
         BusinessError.NOT_FOUND,
       );
     }
@@ -56,7 +56,7 @@ export class SedeService {
     });
     if (!ciudad) {
       throw new BusinessLogicException(
-        'The ciudad with the given id was not found',
+        'The city with the given id was not found',
         BusinessError.NOT_FOUND,
       );
     }
@@ -82,7 +82,7 @@ export class SedeService {
     );
     if (!supermercado) {
       throw new BusinessLogicException(
-        'The supermarket with the given id is not associated to the city',
+        'The super with the given id is not associated to the city',
         BusinessError.PRECONDITION_FAILED,
       );
     }
@@ -111,7 +111,7 @@ export class SedeService {
         });
       if (!supermercado) {
         throw new BusinessLogicException(
-          'The supermarket with the given id was not found',
+          'The super with the given id was not found',
           BusinessError.NOT_FOUND,
         );
       }
@@ -130,7 +130,7 @@ export class SedeService {
       });
     if (!supermercado) {
       throw new BusinessLogicException(
-        'The supermarket with the given id was not found',
+        'The super with the given id was not found',
         BusinessError.NOT_FOUND,
       );
     }
@@ -149,7 +149,7 @@ export class SedeService {
     );
     if (!ciudadSupermercado) {
       throw new BusinessLogicException(
-        'The supermarket with the given id is not associated to the city',
+        'The super with the given id is not associated to the city',
         BusinessError.PRECONDITION_FAILED,
       );
     }

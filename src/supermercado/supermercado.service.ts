@@ -26,7 +26,7 @@ export class SupermercadoService {
       });
     if (!supermercado) {
       throw new BusinessLogicException(
-        'The supermarket with the given id was not found',
+        'The super with the given id was not found',
         BusinessError.NOT_FOUND,
       );
     }
@@ -53,7 +53,7 @@ export class SupermercadoService {
     const supermercadoIndex = this.supermercado.findIndex((s) => s.id === id);
     if (!persistedSupermercado) {
       throw new BusinessLogicException(
-        'The supermarket with the given id was not found',
+        'The super with the given id was not found',
         BusinessError.NOT_FOUND,
       );
     }
@@ -73,7 +73,7 @@ export class SupermercadoService {
       });
     if (!supermercado) {
       throw new BusinessLogicException(
-        'The supermarket with the given id was not found',
+        'The super with the given id was not found',
         BusinessError.NOT_FOUND,
       );
     }

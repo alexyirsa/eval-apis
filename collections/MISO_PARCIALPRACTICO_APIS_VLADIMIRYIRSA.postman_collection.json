@@ -1,0 +1,741 @@
+{
+	"info": {
+		"_postman_id": "4e5236c2-27d0-42fe-bbe8-cb770a4ac213",
+		"name": "MISO_PARCIALPRACTICO_APIS_VLADIMIRYIRSA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5194109"
+	},
+	"item": [
+		{
+			"name": "Cities",
+			"item": [
+				{
+					"name": "Crear un ciudad valida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json()",
+									"pm.globals.set(\"cityid\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"   pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Ciudad Ejemplo\",\n    \"country\": \"Argentina\",\n    \"people\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/cities",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear una ciudad inválida",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"   pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.message).to.eql(\"El país no es válido. Debe ser Argentina, Ecuador o Paraguay.\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Ciudad Ejemplo\",\n    \"country\": \"Jamaica\",\n    \"people\": 150\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/cities",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todas las ciudades",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Number of cities > ' + 0, function () {",
+									"   var data = pm.response.json()",
+									"   pm.expect(data.length).to.greaterThan(0)",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/cities",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una ciudad por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/cities/{{cityid}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities",
+								"{{cityid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una ciudad por un ID que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.message).to.eql(\"The city with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/cities/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar una ciudad",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Club Ejemplo 2\",\n    \"country\": \"Ecuador\",\n    \"people\": 200\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/cities/{{cityid}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities",
+								"{{cityid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar una ciudad con un ID que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.message).to.eql(\"The city with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Club Ejemplo 2\",\n    \"country\": \"Argentina\",\n    \"people\": 180\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/cities/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un club por su ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"   pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/cities/{{cityid}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities",
+								"{{cityid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un club con un ID que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.message).to.eql(\"The city with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/cities/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cities",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "supermarkets",
+			"item": [
+				{
+					"name": "Crear un supermercado válido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json()",
+									"pm.globals.set(\"supermarketid\", data.id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"   pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"supermercado Ejemplo\",\n    \"length\": \"45\",\n    \"latitude\": \"56\",\n    \"webpage\": \"pagina de prueba\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/supermarkets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"supermarkets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear un supermercado no válido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"   pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.message).to.eql(\"The super with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"SupermercadoEjemplo\",\n    \"length\": \"45\",\n    \"latitude\": \"60\",\n    \"webpage\": \"Prueba\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/supermarkets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"supermarkets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los supermercados",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Number of supermarkets > ' + 0, function () {",
+									"   var data = pm.response.json()",
+									"   pm.expect(data.length).to.greaterThan(0)",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/supermarkets",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"supermarkets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un supermercado por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/supermarkets/{{supermarketid}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{supermarketid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un supermercado por un ID que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.message).to.eql(\"The super with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/supermarkets/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"supermarkets",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar un supermercado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"   pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Super Ejemplo 2\",\n    \"length\": \"80\",\n    \"latitude\": \"30\",\n    \"webpage\": \"prueba2\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/supermarkets/{{supermarketid}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{supermarketid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar un supermercado con un ID que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.message).to.eql(\"The super with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Super Ejemplo 2\",\n    \"length\": \"80\",\n    \"latitude\": \"30\",\n    \"webpage\": \"prueba2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/supermarkets/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"supermarkets",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un supermercado por su ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"   pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/supermarkets/{{supermarketid}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"supermarkets",
+								"{{supermarketid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un supermercado con un ID que no existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"   pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Get expected error message\", function () {",
+									"   var data = pm.response.json();",
+									"   pm.expect(data.message).to.eql(\"The member with the given id was not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/members/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}",
+					"host": [
+						"{{baseURL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}

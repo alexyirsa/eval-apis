@@ -22,7 +22,7 @@ export class CiudadService {
   async findOne(id: string): Promise<CiudadEntity> {
     const ciudad: CiudadEntity = await this.ciudadRepository.findOne({
       where: { id },
-      relations: ['restaurantes'],
+      relations: ['supermercados'],
     });
     if (!ciudad) {
       throw new BusinessLogicException(
@@ -43,7 +43,9 @@ export class CiudadService {
   }
 
   async update(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
-    const ciudadIndex = this.ciudad.findIndex((ciudad) => ciudad.id === id);
+    const ciudadIndex = this.ciudad.findIndex(
+      (ciudad: { id: string }) => ciudad.id === id,
+    );
     const persistedCiudad: CiudadEntity = await this.ciudadRepository.findOne({
       where: { id },
     });
